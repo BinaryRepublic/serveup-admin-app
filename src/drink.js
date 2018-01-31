@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ShowDrinkPopUp from './showDrinkPopUp';
+// import ShowDrinkPopUp from './showDrinkPopUp';
 import './assets/css/drink.css';
 
 class Drink extends Component {
@@ -12,7 +12,7 @@ class Drink extends Component {
         }
         // this.switchDrinkPopUp = this.switchDrinkPopUp.bind(this);
         // this.updateDrink = this.updateDrink.bind(this);
-        this.switchChildren = this.switchChildren.bind(this);
+        this.onClick = this.onClick.bind(this);
 
     }
 
@@ -29,7 +29,8 @@ class Drink extends Component {
     //     this.setState({drink: drink})
     // }
 
-    switchChildren () {
+
+    onClick () {
         this.setState({showChildren: !this.state.showChildren})
     }
 
@@ -42,10 +43,10 @@ class Drink extends Component {
         //     }
         // }
 
-        var drinkPopUp;
-        if(this.state.showDrinkPopUp) {
-            drinkPopUp = <ShowDrinkPopUp key={i} index={i} switchDrinkPopUp={this.switchDrinkPopUp} updateDrink={this.updateDrink} drink={this.state.drink}/> 
-        } 
+        // var drinkPopUp;
+        // if(this.state.showDrinkPopUp) {
+        //     drinkPopUp = <ShowDrinkPopUp key={i} index={i} switchDrinkPopUp={this.switchDrinkPopUp} updateDrink={this.updateDrink} drink={this.state.drink}/> 
+        // } 
 
         if(this.state.showChildren) {
             var MenuElements3 = [];
@@ -58,14 +59,18 @@ class Drink extends Component {
         }
 
         return (
-            <div className="drinks"> 
-                <div onClick={this.switchChildren}>
-                    {this.state.drink.name}
-                    <button>Open</button>
+            <div className="leftContainer">
+                <div className="drinks"> 
+                    <div onClick={this.onClick}>
+                        {this.state.drink.name}
+                    </div>
+                    <div>
+                        <button>Edit</button>
+                    </div>
+                    {/* {add} */}
+                    {MenuElements3}
+                    {/* {drinkPopUp} */}
                 </div>
-                {/* {add} */}
-                {MenuElements3}
-                {drinkPopUp}
             </div>
         )
     }

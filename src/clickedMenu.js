@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from '../src/mockdata/menu.json';
 import Drink from './drink.js';
-
+import './assets/css/clickedMenu.css';
 
 
 class ClickedMenu extends Component {
@@ -29,12 +29,28 @@ class ClickedMenu extends Component {
         }
 
         return (
-            <div>
-                <button onClick={this.props.switchViews3.bind(this, undefined)}>Zurück zur Übersicht Menüs</button>
-                <h1>
-                    {this.props.menu}
-                </h1>
+            <div class="container">
+                <button class="button2" onClick={this.props.switchViews3.bind(this, undefined)}>ZURÜCK</button>
+                <div class="heading">
+                    <h1>
+                        {this.props.menu}
+                    </h1>
+                </div>
+                <div className="rightContainer">
+                    <div className="innerContainer">
+                        <div>
+                            <p>Name: </p>
+                            <input className="inputfield" type="text"/>
+                        </div>
+                        <div className="endFloat" >
+                        <p>Default: </p>
+                        <input className="inputfield" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <p class="drink">
                 {MenuElements2}
+                </p>
             </div>
         );
     }
