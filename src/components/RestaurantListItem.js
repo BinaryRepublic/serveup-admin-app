@@ -19,7 +19,7 @@ class RestaurantListItem extends Component {
                 <span>{this.props.restaurant.name}</span>
                 <span onClick={this.edit}>edit</span>
             </div>
-        )
+        );
     }
 }
 

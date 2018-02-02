@@ -4,7 +4,7 @@ class RestaurantVoiceDevices extends Component {
     render () {
         return (
             <p>VoiceDevice-List</p>
-        )
+        );
     }
 }
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import RestaurantMenusItem from '../components/RestaurantMenusItem';
-import RealmHelper from "../library/RealmHelper";
-import EditPopup from "./EditPopup";
-import EditPopupHelper from "../library/EditPopupHelper";
+import RealmHelper from '../library/RealmHelper';
+import EditPopup from './EditPopup';
+import EditPopupHelper from '../library/EditPopupHelper';
 
 class RestaurantMenus extends Component {
     constructor (props) {
@@ -82,7 +82,7 @@ class RestaurantMenus extends Component {
         });
         let editPopup;
         if (this.state.editMenu) {
-            let formFields = ["name"];
+            let formFields = ['name'];
             editPopup = <EditPopup formData={this.state.editMenuData} formFields={formFields} create={this.createMenu} update={this.updateMenu} delete={this.deleteMenu} close={this.editMenuClose} />;
         }
         return (
@@ -91,7 +91,7 @@ class RestaurantMenus extends Component {
                 {menuItems}
                 {editPopup}
             </div>
-        )
+        );
     }
 }
 

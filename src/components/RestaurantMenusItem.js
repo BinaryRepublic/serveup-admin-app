@@ -22,7 +22,7 @@ class RestaurantMenusItem extends Component {
                 <span className="menus-item-name">{this.props.menu.name}</span> -
                 <span onClick={this.edit}>edit</span>
             </div>
-        )
+        );
     }
 }
 export default RestaurantMenusItem;

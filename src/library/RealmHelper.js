@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 class RealmHelper {
-    constructor(requestToken = false) {
+    constructor (requestToken = false) {
         this.http = axios.create({
             baseURL: 'http://localhost:4000'
         });
@@ -21,7 +21,7 @@ class RealmHelper {
         try {
             let obj = JSON.parse(str);
             return obj;
-        } catch(err) {
+        } catch (err) {
             return str;
         }
     }
@@ -32,17 +32,17 @@ class RealmHelper {
             let getCfg = that.config;
             getCfg.params = params;
             that.http.get(path, getCfg)
-            .then(function (response) {
-                let result = that.encode(response);
-                if (result.status === 200) {
-                    resolve(result.data);
-                } else {
-                    reject(result);
-                }
-            })
-            .catch(function (error) {
-                reject(error);
-            });
+                .then(function (response) {
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
         });
     }
 
@@ -50,16 +50,16 @@ class RealmHelper {
         const that = this;
         return new Promise((resolve, reject) => {
             that.http.post(path, params, that.config)
-            .then(function (response) {
-                let result = that.encode(response);
-                if (result.status === 200) {
-                    resolve(result.data);
-                } else {
-                    reject(result);
-                }
-            }).catch(function (error) {
-                reject(error);
-            });
+                .then(function (response) {
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
+                }).catch(function (error) {
+                    reject(error);
+                });
         });
     }
 
@@ -75,8 +75,8 @@ class RealmHelper {
                         reject(result);
                     }
                 }).catch(function (error) {
-                reject(error);
-            });
+                    reject(error);
+                });
         });
     }
 
@@ -92,8 +92,8 @@ class RealmHelper {
                         reject(result);
                     }
                 }).catch(function (error) {
-                reject(error);
-            });
+                    reject(error);
+                });
         });
     }
 }

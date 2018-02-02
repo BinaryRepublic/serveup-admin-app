@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import AccountItem from '../components/AccountItem'
-import EditPopup from '../components/EditPopup'
-import EditPopupHelper from '../library/EditPopupHelper'
+import AccountItem from '../components/AccountItem';
+import EditPopup from '../components/EditPopup';
+import EditPopupHelper from '../library/EditPopupHelper';
 import '../assets/css/Account.css';
 import Realm from '../library/RealmHelper';
 
 class Account extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.realm = new Realm();
         this.state = {
@@ -90,13 +90,13 @@ class Account extends Component {
     render () {
         var AccountElements = [];
         for (var i = 0; i < this.state.accounts.length; i++) {
-            var account = this.state.accounts[i]
+            var account = this.state.accounts[i];
             AccountElements.push(<AccountItem key={i} index={i} switchViews={this.props.switchViews} account={account} editAccount={this.editAccount}/>);
         }
         var editAccount;
         if (this.state.editAccount !== undefined) {
             let formFields = ['mail', 'password', 'firstName', 'surName', 'street', 'postCode', 'city', 'country', 'phone'];
-            editAccount = <EditPopup title="create/edit account" formData={this.state.editAccount} formFields={formFields} create={this.createAccount} update={this.updateAccount} delete={this.deleteAccount} close={this.editAccountClose} />
+            editAccount = <EditPopup title="create/edit account" formData={this.state.editAccount} formFields={formFields} create={this.createAccount} update={this.updateAccount} delete={this.deleteAccount} close={this.editAccountClose} />;
         }
         return (
             <div className="account-list">
@@ -109,7 +109,7 @@ class Account extends Component {
                 </div>
                 {editAccount}
             </div>
-        )
+        );
     }
 }
 

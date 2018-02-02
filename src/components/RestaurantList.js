@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import RestaurantListItem from '../components/RestaurantListItem'
-import EditPopup from '../components/EditPopup'
-import EditPopupHelper from '../library/EditPopupHelper'
+import RestaurantListItem from '../components/RestaurantListItem';
+import EditPopup from '../components/EditPopup';
+import EditPopupHelper from '../library/EditPopupHelper';
 import RealmHelper from '../library/RealmHelper';
 
 class RestaurantList extends Component {
-
     constructor (props) {
         super(props);
 
