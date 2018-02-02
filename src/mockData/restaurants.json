@@ -1,5 +1,6 @@
 [
     {
+        "id": "1",
         "name": "Stakeschuppen",
         "street": "Hauptstraße ",
         "houseNumber": 123,
@@ -7,6 +8,7 @@
         "size": "50 Tische"
     },
     {
+        "id": "2",
         "name": "Stakeschuppen",
         "street": "Hauptstraße ",
         "houseNumber": 123,

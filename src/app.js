@@ -1,33 +1,86 @@
 import React, { Component } from 'react';
-import './assets/css/app.css';
-import AccountTable from './accountTable.js';
-import ClickedAccount from './clickedAccount.js';
+import Nav from './components/Nav.js';
+import Account from './components/Account.js';
+import Restaurant from './components/Restaurant.js';
+import Menu from './components/Menu.js';
+import VoiceDevice from './components/VoiceDevice.js';
+import './assets/css/App.css';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedAccount: undefined
-        }
+            viewData: {
+                Account: 1,
+                Restaurant: undefined,
+                Menu: undefined,
+                VoiceDevice: undefined
+            },
+            navItems: [{
+                componentName: 'Account',
+                navName: 'Accounts'
+            }]
+        };
         this.switchViews = this.switchViews.bind(this);
+        this.navigateViews = this.navigateViews.bind(this);
     }
 
-    switchViews (account) {
-        this.setState({selectedAccount: account})
+    switchViews (componentName, props, navName) {
+        let newState = this.state;
+        newState.viewData[componentName] = props;
+        newState.navItems.push({
+            componentName: componentName,
+            navName: navName
+        });
+        this.setState(newState);
+    }
+    navigateViews (navName) {
+        let newState = this.state;
+        // delete from navItems
+        let navItemIndex = -1;
+        let componentName;
+        newState.navItems.forEach((item, x) => {
+            if (item.navName === navName) {
+                navItemIndex = x;
+                componentName = item.componentName;
+            }
+        });
+        if (componentName) {
+            newState.navItems.splice(navItemIndex + 1);
+            // delete from viewData
+            let deleteViewData = false;
+            for (let key in newState.viewData) {
+                if (deleteViewData) {
+                    delete newState.viewData[key];
+                }
+                if (key === componentName) {
+                    deleteViewData = true;
+                }
+            }
+        }
+        this.setState(newState);
     }
 
     render() {
-        console.log(this.state.selectedAccount);
-        if(!this.state.selectedAccount) {
-            return (
-                <AccountTable switchViews={this.switchViews}/>
-            );
+        // prepare content
+        let content;
+        if (this.state.viewData.VoiceDevice) {
+            content = <VoiceDevice voiceDeviceId={this.state.viewData.VoiceDevice.id} switchViews={this.switchViews} />
+        } else if (this.state.viewData.Menu) {
+            content = <Menu menu={this.state.viewData.Menu} switchViews={this.switchViews} />
+        } else if (this.state.viewData.Restaurant) {
+            content = <Restaurant accountId={this.state.viewData.Restaurant} switchViews={this.switchViews} />
+        } else {
+            content = <Account switchViews={this.switchViews} />
         }
-        else {
-            return (
-                <ClickedAccount account={this.state.selectedAccount} switchViews={this.switchViews}/>
-            );
-        }
+        return (
+            <div id="wrapper">
+                <Nav items={this.state.navItems} navigateViews={this.navigateViews}/>
+                <div id="content">
+                {content}
+                </div>
+            </div>
+        );
     }
 }
 
