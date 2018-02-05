@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import EditPopupItem from './EditPopupItem';
 import '../assets/css/EditPopup.css';
 
 class EditPopup extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         let formData = {};
@@ -15,9 +16,6 @@ class EditPopup extends Component {
             delete formData.id;
         } else {
             create = true;
-            this.props.formFields.forEach((item) => {
-                formData[item] = '';
-            });
         }
         this.state = {
             formData: formData,
@@ -31,7 +29,7 @@ class EditPopup extends Component {
         this.deleteItem = this.deleteItem.bind(this);
     }
 
-    handleChange(event) {
+    handleChange (event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -52,28 +50,53 @@ class EditPopup extends Component {
 
     render () {
         let inputItems = [];
-        for (let key in this.state.formData) {
-            inputItems.push(<input key={key} name={key} value={this.state.formData[key]} onChange={this.handleChange} placeholder={key}/>);
-        }
+        this.props.formFields.forEach((key, x) => {
+            let type = 'text';
+            if (typeof key === 'object') {
+                type = key.type;
+                key = key.name;
+            }
+            let value;
+            let formData = this.state.formData[key];
+            if (this.create) {
+                value = '';
+            } else {
+                value = formData;
+            }
+            if (value === undefined) {
+                switch (type) {
+                case 'checkbox':
+                    value = false;
+                    break;
+                default:
+                    value = '';
+                    break;
+                }
+            }
+            inputItems.push(<EditPopupItem key={key} name={key} type={type} value={value} handleChange={this.handleChange} placeholder="" />)
+        });
 
         let actionButtons;
         if (this.state.create) {
-            actionButtons = <button className="buttonSubmit" type="submit" onClick={this.createItem}>create</button>;
+            actionButtons = <button className="popup-form-submit hover" type="submit" onClick={this.createItem}>create</button>;
         } else {
             actionButtons = [];
-            actionButtons.push(<button key={0} className="buttonSubmit" type="submit" onClick={this.updateItem}>update</button>);
-            actionButtons.push(<button key={1} className="buttonSubmit" type="submit" onClick={this.deleteItem}>delete</button>);
+            actionButtons.push(<button key={0} className="popup-form-submit hover" type="submit" onClick={this.updateItem}>update</button>);
+            actionButtons.push(<button key={1} className="popup-form-delete hover" type="submit" onClick={this.deleteItem}>delete</button>);
         }
 
         return (
             <div className='popup'>
-                <div className='popup_inner'>
-                    <h1>{this.props.title}</h1>
-                    <form>
+                <div className='popup-overlay'></div>
+                <div className='popup-inner'>
+                    <h1 className="popup-title">{this.props.title}</h1>
+                    <div className="popup-form">
                         {inputItems}
-                    </form>
-                    {actionButtons}
-                    <button className="buttonClose" onClick={this.props.close}>cancel</button>
+                        <div className="popup-form-buttons">
+                            {actionButtons}
+                            <button className="popup-form-close hover" onClick={this.props.close}>cancel</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

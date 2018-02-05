@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+.clear {
+    clear: both;
+}
+
+#wrapper {
+    width: 90%;
+    margin: 0px auto;
+    max-width: 1000px;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    position: relative;
+}
+
+.hover {
+    -webkit-transition: background-color 400ms; /* Safari */
+    -o-transition: background-color 400ms; /* Opera */
+    transition: background-color 400ms;
+}
+.hover:hover{
+    cursor: pointer;
+    background-color: #272727 !important;
+    color: #fff !important;
+}
+.hover.delete:hover {
+    background-color: red !important;
+}
+
+.create-item {
+    padding: 10px;
+    -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    display: inline-block;
+    font-size: 90%;
+}
+.create-item-icon {
+    margin-right: 10px;
+}
+
+.list-item {
+    padding: 15px;
+    margin: 20px 0;
+    -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+}
+.list-item.selected {
+    background-color: rgba(0,0,0,0.8);
+    color: #fff;
+}
+.list-item-text-item {
+    margin: 0 5px;
+}
+.list-item-icons-item:hover {
+    cursor: pointer;
+    color: #c66200;
+}

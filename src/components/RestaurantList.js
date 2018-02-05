@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RestaurantListItem from '../components/RestaurantListItem';
+import CreateItem from '../components/CreateItem';
 import EditPopup from '../components/EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
 import RealmHelper from '../library/RealmHelper';
@@ -100,11 +101,15 @@ class RestaurantList extends Component {
         var RestaurantElements = [];
         for (var i = 0; i < this.state.restaurants.length; i++) {
             var restaurant = this.state.restaurants[i];
-            RestaurantElements.push(<RestaurantListItem key={i} index={i} restaurant={restaurant} select={this.props.selectRestaurant} edit={this.editRestaurant}/>);
+            let selected = false;
+            if (this.props.selectedId && this.props.selectedId === restaurant.id) {
+                selected = true;
+            }
+            RestaurantElements.push(<RestaurantListItem key={i} index={i} selected={selected} restaurant={restaurant} select={this.props.selectRestaurant} edit={this.editRestaurant}/>);
         }
         return (
-            <div id="restaurant-list">
-                <button onClick={this.editRestaurant.bind(this, undefined)}>create restaurant</button>
+            <div id="restaurant-list" className="restaurant-item">
+                <CreateItem text="CREATE RESTAURANT" click={this.editRestaurant.bind(this, undefined)} />
                 {RestaurantElements}
                 {editPopup}
             </div>

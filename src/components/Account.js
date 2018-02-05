@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import AccountItem from '../components/AccountItem';
-import EditPopup from '../components/EditPopup';
+import AccountItem from './AccountItem';
+import CreateItem from './CreateItem';
+import EditPopup from './EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
 import '../assets/css/Account.css';
 import Realm from '../library/RealmHelper';
@@ -98,13 +99,11 @@ class Account extends Component {
             let formFields = ['mail', 'password', 'firstName', 'surName', 'street', 'postCode', 'city', 'country', 'phone'];
             editAccount = <EditPopup title="create/edit account" formData={this.state.editAccount} formFields={formFields} create={this.createAccount} update={this.updateAccount} delete={this.deleteAccount} close={this.editAccountClose} />;
         }
+
         return (
-            <div className="account-list">
-                <h1>Übersicht Accounts</h1>
-                <button>Suchfunktion</button>
-                <button onClick={this.editAccount.bind(this, undefined)}>Neuen Account erstellen</button>
-                <button>Logout</button>
-                <div className="parent">
+            <div className="account">
+                <CreateItem click={this.editAccount.bind(this, undefined)} text="CREATE ACCOUNT"/>
+                <div className="account-list">
                     {AccountElements}
                 </div>
                 {editAccount}

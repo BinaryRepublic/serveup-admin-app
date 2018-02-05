@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RestaurantMenusItem from '../components/RestaurantMenusItem';
+import CreateItem from '../components/CreateItem';
 import RealmHelper from '../library/RealmHelper';
 import EditPopup from './EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
@@ -78,7 +79,7 @@ class RestaurantMenus extends Component {
     render () {
         let menuItems = [];
         this.state.menus.forEach((menuItem, x) => {
-            menuItems.push(<RestaurantMenusItem menu={menuItem} key={x} index={x} switchViews={this.props.switchViews} edit={this.editMenu}/>);
+            menuItems.push(<RestaurantMenusItem menu={menuItem} key={x} index={x} switchViews={this.props.switchViews} edit={this.editMenu} restaurantId={this.props.restaurantId}/>);
         });
         let editPopup;
         if (this.state.editMenu) {
@@ -86,8 +87,8 @@ class RestaurantMenus extends Component {
             editPopup = <EditPopup formData={this.state.editMenuData} formFields={formFields} create={this.createMenu} update={this.updateMenu} delete={this.deleteMenu} close={this.editMenuClose} />;
         }
         return (
-            <div id="menus">
-                <button onClick={this.editMenu}>create menu</button>
+            <div id="restaurant-menus" className="restaurant-item">
+                <CreateItem text="CREATE MENU" click={this.editMenu} />
                 {menuItems}
                 {editPopup}
             </div>

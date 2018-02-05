@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RestaurantList from '../components/RestaurantList'
-import RestaurantMenus from '../components/RestaurantMenus'
+import RestaurantList from '../components/RestaurantList';
+import RestaurantMenus from '../components/RestaurantMenus';
 // import RestaurantVoiceDevices from '../components/RestaurantVoiceDevices'
 import '../assets/css/Restaurant.css';
 
 class Restaurant extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
             restaurantId: false
@@ -23,12 +23,12 @@ class Restaurant extends Component {
     render () {
         return (
             <div id="restaurant">
-                <RestaurantList accountId={this.props.accountId} selectRestaurant={this.selectRestaurant}/>
+                <RestaurantList accountId={this.props.accountId} selectRestaurant={this.selectRestaurant} selectedId={this.state.restaurantId}/>
                 {this.state.restaurantId &&
-                    <RestaurantMenus restaurantId={this.state.restaurantId} accountId={this.props.accountId} switchViews={this.props.switchViews}/>
+                    <RestaurantMenus id="restaurant-menu" className="restaurant-item" restaurantId={this.state.restaurantId} accountId={this.props.accountId} switchViews={this.props.switchViews}/>
                 }
             </div>
-        )
+        );
         /* -- later
             {this.state.restaurantId &&
                 <RestaurantVoiceDevices restaurantId={this.state.restaurantId}/>

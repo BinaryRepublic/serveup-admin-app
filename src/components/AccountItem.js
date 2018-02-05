@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../assets/css/AccountItem.css';
+import Fa from '@fortawesome/react-fontawesome'
 
 class AccountItem extends Component {
     constructor () {
@@ -16,17 +17,16 @@ class AccountItem extends Component {
     }
     render () {
         return (
-            <div className="item" onClick={this.switchViews}>
-                <span>
-                    {this.props.account.firstName}
-                    &nbsp;
-                    {this.props.account.lastName}
-                </span>
-                <span onClick={this.editAccount}>
-                    Edit
-                </span>
+            <div className="list-item hover" onClick={this.switchViews}>
+                <div className="list-item-text">
+                    <span className="list-item-text-item">{this.props.account.firstName}</span>
+                    <span className="list-item-text-item">{this.props.account.surName}</span>
+                </div>
+                <div className="list-item-icons">
+                    <Fa className="list-item-icons-item" icon="pencil-alt" onClick={this.editAccount} />
+                </div>
             </div>
-        )
+        );
     }
 }
 

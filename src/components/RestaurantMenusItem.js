@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fa from '@fortawesome/react-fontawesome'
 
 class RestaurantMenusItem extends Component {
     constructor () {
@@ -8,7 +9,11 @@ class RestaurantMenusItem extends Component {
     }
 
     switchViews () {
-        this.props.switchViews('Menu', this.props.menu, this.props.menu.name);
+        let params = {
+            content: this.props.menu,
+            restaurantId: this.props.restaurantId
+        };
+        this.props.switchViews('Menu', params, this.props.menu.name);
     }
 
     edit (e) {
@@ -18,9 +23,13 @@ class RestaurantMenusItem extends Component {
 
     render () {
         return (
-            <div className="menus-item" onClick={this.switchViews}>
-                <span className="menus-item-name">{this.props.menu.name}</span> -
-                <span onClick={this.edit}>edit</span>
+            <div className="list-item hover" onClick={this.switchViews}>
+                <div className="list-item-text">
+                    <span className="list-item-text-item">{this.props.menu.name}</span>
+                </div>
+                <div className="list-item-icons">
+                    <Fa className="list-item-icons-item" icon="pencil-alt" onClick={this.edit} />
+                </div>
             </div>
         );
     }

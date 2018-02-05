@@ -1,0 +1,8 @@
+#restaurant {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.restaurant-item {
+    width: 48%;
+}
