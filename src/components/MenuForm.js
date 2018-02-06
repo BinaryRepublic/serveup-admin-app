@@ -40,7 +40,8 @@ class MenuForm extends Component {
             });
             newState.menuItem.var = [];
         } else {
-            newState.menuItem = this.convertToForm(props.menuItem);
+            newState.menuItem = Object.assign({}, props.menuItem);
+            newState.menuItem = this.convertToForm(newState.menuItem);
             newState.create = false;
         }
         this.setState(newState);
@@ -90,18 +91,19 @@ class MenuForm extends Component {
                 formObj[key] = formObj[key].toLowerCase();
             }
         }
-        console.log(formObj.synonym);
         if (formObj.synonym && formObj.synonym !== '') {
             formObj.synonym = formObj.synonym.replace(/ /g, '').split(',');
-        } else {
+        }
+        if (!Array.isArray(formObj.synonym)) {
             formObj.synonym = [];
         }
-        console.log(formObj.synonym);
         return formObj;
     }
     convertToForm (dbObj) {
-        if (dbObj.synonym) {
+        if (dbObj.synonym && Array.isArray(dbObj.synonym)) {
             dbObj.synonym = dbObj.synonym.join(',');
+        } else {
+            dbObj.synonym = '';
         }
         return dbObj;
     }
