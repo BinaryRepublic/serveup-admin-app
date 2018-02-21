@@ -12,9 +12,21 @@ class RestaurantMenus extends Component {
             menus: []
         };
 
+        this.componentWillReceiveProps(props);
+
+        this.editMenu = this.editMenu.bind(this);
+        this.editMenuClose = this.editMenuClose.bind(this);
+        this.createMenu = this.createMenu.bind(this);
+        this.updateMenu = this.updateMenu.bind(this);
+        this.deleteMenu = this.deleteMenu.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    componentWillReceiveProps (props) {
         // load menus
         this.realm = new RealmHelper();
-        this.realmPath = '/account/' + this.props.accountId + '/restaurant/' + this.props.restaurantId + '/menu';
+        this.realmPath = '/account/' + props.accountId + '/restaurant/' + props.restaurantId + '/menu';
+        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus');
         this.realm.get(this.realmPath).then(result => {
             let newState = this.state;
             newState.menus = result;
@@ -22,20 +34,12 @@ class RestaurantMenus extends Component {
         }).catch(err => {
             console.log(err);
         });
-
-        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus');
-
-        this.editMenu = this.editMenu.bind(this);
-        this.editMenuClose = this.editMenuClose.bind(this);
-        this.createMenu = this.createMenu.bind(this);
-        this.updateMenu = this.updateMenu.bind(this);
-        this.deleteMenu = this.deleteMenu.bind(this);
     }
 
     editMenu (menuIndex) {
         let newState = this.state;
         if (menuIndex !== undefined) {
-            newState.editMenuData = this.state.menus[menuIndex];
+            newState.editMenuData = Object.assign({}, this.state.menus[menuIndex]);
             for (let key in newState.editMenuData) {
                 if (key !== 'id' && key !== 'name') {
                     delete newState.editMenuData[key];

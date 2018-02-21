@@ -39,7 +39,7 @@ class RestaurantList extends Component {
     editRestaurant (restaurantIndex) {
         let newState = this.state;
         if (restaurantIndex !== undefined) {
-            newState.editRestaurantData = this.state.restaurants[restaurantIndex];
+            newState.editRestaurantData = Object.assign({}, this.state.restaurants[restaurantIndex]);
             let newFormData = {};
             // format form data
             for (let key in newState.editRestaurantData) {

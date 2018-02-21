@@ -22,7 +22,7 @@ class MenuFormVar extends Component {
     editMenuFormVar (varIndex) {
         let newState = this.state;
         if (varIndex !== undefined) {
-            newState.editMenuFormVarData = this.state.formVar[varIndex];
+            newState.editMenuFormVarData = Object.assign({}, this.state.formVar[varIndex]);
         } else {
             newState.editMenuFormVarData = false;
         }
@@ -60,7 +60,7 @@ class MenuFormVar extends Component {
         }
         return (
             <div id="menu-form-var" className="menu-form-item">
-                <CreateItem click={this.editMenuFormVar} text="CREATE VAR"/>
+                <CreateItem click={this.editMenuFormVar.bind(this, undefined)} text="CREATE VAR"/>
                 {vars}
                 {editPopup}
             </div>

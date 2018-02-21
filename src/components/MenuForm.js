@@ -9,6 +9,8 @@ class MenuForm extends Component {
         this.state = {
             inputNames: ['name', 'synonym', 'alone', 'default', 'productName']
         };
+        // give new formVar items an id for identifying them before they are stored in DB
+        this.formVarId = 0;
 
         this.componentSetState = this.componentSetState.bind(this);
 
@@ -67,6 +69,8 @@ class MenuForm extends Component {
         if (!newState.menuItem.var) {
             newState.menuItem.var = [];
         }
+        newData.id = this.formVarId;
+        this.formVarId++;
         newData.size = parseInt(newData.size, 10);
         newData.price = parseFloat(newData.price);
         newState.menuItem.var.push(newData);

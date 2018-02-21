@@ -38,7 +38,7 @@ class Account extends Component {
     editAccount (accountIndex) {
         let newState = this.state;
         if (accountIndex !== undefined) {
-            newState.editAccount = this.state.accounts[accountIndex];
+            newState.editAccount = Object.assign({}, this.state.accounts[accountIndex]);
             let newFormData = {};
             // format form data
             for (let key in newState.editAccount) {

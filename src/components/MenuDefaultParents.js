@@ -22,7 +22,7 @@ class MenuDefaultParents extends Component {
     editDp (index) {
         let newState = this.state;
         if (index !== undefined) {
-            newState.editDpData = this.state.defaultParents[index];
+            newState.editDpData = Object.assign({}, this.state.defaultParents[index]);
         } else {
             newState.editDpData = false;
         }
