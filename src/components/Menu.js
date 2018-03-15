@@ -116,17 +116,14 @@ class Menu extends Component {
 
     // submit menu to database
     submit () {
-        let path = '/account/' + this.state.accountId + '/restaurant/' + this.state.restaurantId + '/menu/' + this.state.menu.id;
+        let path = '/menu/' + this.state.menu.id;
         let newMenu = this.state.menu;
         this.realm.put(path, newMenu).then((result) => {
-            console.log(result);
-            if (result.error) {
-                alert(result.error);
-            } else {
-                alert('success');
-            }
+            alert('success');
         }).catch(err => {
-            console.log(err);
+            if (err.response.status === 500 && err.response.data.error) {
+                alert(err.response.data.error);
+            }
         });
     }
 

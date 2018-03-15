@@ -7,7 +7,7 @@ class MenuForm extends Component {
         super(props);
 
         this.state = {
-            inputNames: ['name', 'synonym', 'alone', 'default', 'productName']
+            inputNames: ['name', 'synonym', 'alone', 'default', 'productName', 'category']
         };
         // give new formVar items an id for identifying them before they are stored in DB
         this.formVarId = 0;

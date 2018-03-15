@@ -25,7 +25,7 @@ class RestaurantMenus extends Component {
     componentWillReceiveProps (props) {
         // load menus
         this.realm = new RealmHelper();
-        this.realmPath = '/account/' + props.accountId + '/restaurant/' + props.restaurantId + '/menu';
+        this.realmPath = '/menus?restaurantId=' + props.restaurantId;
         this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus');
         this.realm.get(this.realmPath).then(result => {
             let newState = this.state;

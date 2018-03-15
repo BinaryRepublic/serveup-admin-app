@@ -17,7 +17,7 @@ class RestaurantList extends Component {
 
         // load restaurants
         this.realm = new RealmHelper();
-        this.realmPath = '/account/' + this.props.accountId + '/restaurant';
+        this.realmPath = '/restaurants?accountId=' + this.props.accountId;
         this.realm.get(this.realmPath).then(result => {
             let newState = this.state;
             newState.restaurants = result;
