@@ -3,7 +3,7 @@ import MenuTree from '../components/MenuTree';
 import MenuForm from '../components/MenuForm';
 import RealmHelper from '../library/RealmHelper';
 import '../assets/css/Menu.css';
-import MenuDefaultParents from "./MenuDefaultParents";
+import MenuDefaultParents from './MenuDefaultParents';
 
 class Menu extends Component {
     constructor (props) {
