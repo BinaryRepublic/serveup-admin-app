@@ -25,9 +25,9 @@ class RestaurantMenus extends Component {
     componentWillReceiveProps (props) {
         // load menus
         this.realm = new RealmHelper();
-        this.realmPath = '/menus?restaurantId=' + props.restaurantId;
-        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus');
-        this.realm.get(this.realmPath).then(result => {
+        this.realmPath = '/menu';
+        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus', {restaurantId: props.restaurantId});
+        this.realm.get('/menus?restaurantId=' + props.restaurantId).then(result => {
             let newState = this.state;
             newState.menus = result;
             this.setState(newState);
@@ -91,8 +91,8 @@ class RestaurantMenus extends Component {
             editPopup = <EditPopup formData={this.state.editMenuData} formFields={formFields} create={this.createMenu} update={this.updateMenu} delete={this.deleteMenu} close={this.editMenuClose} />;
         }
         return (
-            <div id="restaurant-menus" className="restaurant-item">
-                <CreateItem text="CREATE MENU" click={this.editMenu} />
+            <div id="restaurant-menus">
+                <CreateItem text="CREATE MENU" click={this.editMenu.bind(this, undefined)} />
                 {menuItems}
                 {editPopup}
             </div>

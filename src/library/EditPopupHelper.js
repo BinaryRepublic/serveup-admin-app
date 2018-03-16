@@ -1,11 +1,12 @@
 import RealmHelper from './RealmHelper';
 
 class EditPopupHelper {
-    constructor (basePath, arrayKey) {
+    constructor (basePath, arrayKey, createParams = {}) {
         this.realm = new RealmHelper();
 
         this.basePath = basePath + '/';
         this.arrayKey = arrayKey;
+        this.createParams = createParams;
 
         this.createItem = this.createItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
@@ -13,8 +14,12 @@ class EditPopupHelper {
     }
     createItem (state, formData) {
         const that = this;
+        let requestData = formData;
+        for (let key in this.createParams) {
+            requestData[key] = this.createParams[key];
+        }
         return new Promise((resolve, reject) => {
-            that.realm.post(that.basePath, formData).then(result => {
+            that.realm.post(that.basePath, requestData).then(result => {
                 let newState = state;
                 newState[that.arrayKey].push(result);
                 resolve(newState);

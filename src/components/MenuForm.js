@@ -111,7 +111,7 @@ class MenuForm extends Component {
         }
         // set null to ''
         for (var key in dbObj) {
-            if (dbObj[key] === null) {
+            if (dbObj[key] === null && key !== 'alone') {
                 dbObj[key] = '';
             }
         }

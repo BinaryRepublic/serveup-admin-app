@@ -6,3 +6,9 @@
 .restaurant-item {
     width: 48%;
 }
+#restaurant-menus {
+    margin-bottom: 20px;
+}
+.voice-device-id {
+    font-size: 70%;
+}

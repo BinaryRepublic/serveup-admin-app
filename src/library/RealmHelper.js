@@ -3,6 +3,7 @@ import axios from 'axios';
 class RealmHelper {
     constructor (requestToken = false) {
         this.http = axios.create({
+            //baseURL: 'http://138.68.71.39:4200'
             baseURL: 'http://localhost:4000'
         });
         this.config = {
@@ -57,7 +58,8 @@ class RealmHelper {
                     } else {
                         reject(result);
                     }
-                }).catch(function (error) {
+                }).catch(error => {
+                    alert('Error: ' + error.response.data.error.msg);
                     reject(error);
                 });
         });
@@ -74,7 +76,8 @@ class RealmHelper {
                     } else {
                         reject(result);
                     }
-                }).catch(function (error) {
+                }).catch(error => {
+                    alert('Error: ' + error.response.data.error.msg);
                     reject(error);
                 });
         });
@@ -91,7 +94,8 @@ class RealmHelper {
                     } else {
                         reject(result);
                     }
-                }).catch(function (error) {
+                }).catch(error => {
+                    alert('Error: ' + error.response.data.error.msg);
                     reject(error);
                 });
         });

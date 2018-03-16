@@ -27,7 +27,7 @@ class RestaurantList extends Component {
         });
 
         // edit restaurants
-        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'restaurants');
+        this.editPopupHelper = new EditPopupHelper('/restaurant', 'restaurants', {accountId: this.props.accountId});
 
         this.editRestaurant = this.editRestaurant.bind(this);
         this.editRestaurantClose = this.editRestaurantClose.bind(this);
