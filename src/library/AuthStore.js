@@ -1,0 +1,63 @@
+class AuthStore {
+    constructor() {
+        this.storageKey = 'roauthdata';
+        this.authAvailable = this.authAvailable.bind(this);
+        this.loadAuth = this.loadAuth.bind(this);
+    }
+    authAvailable() {
+        if (localStorage.getItem(this.storageKey)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    saveAuth(accountId, accessToken, refreshToken, expire) {
+        if (!accountId || !accessToken || !refreshToken || !expire) {
+            return false;
+        } else {
+            let authObject = {
+                accountId: accountId,
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+                expire: expire
+            };
+            localStorage.setItem(this.storageKey, JSON.stringify(authObject));
+            return true;
+        }
+    }
+    loadAuth() {
+        if (localStorage.getItem(this.storageKey)) {
+            let authString = localStorage.getItem(this.storageKey);
+            let authObject = JSON.parse(authString);
+            return authObject;
+        } else {
+            return undefined;
+        }
+    }
+    accessToken() {
+        let auth = this.loadAuth();
+        if (auth && auth.accessToken) {
+            return auth.accessToken;
+        } else {
+            return undefined;
+        }
+    }
+    refreshToken() {
+        let auth = this.loadAuth();
+        if (auth && auth.refreshToken) {
+            return auth.refreshToken;
+        } else {
+            return undefined;
+        }
+    }
+    isExpired(token) {
+        let now = Date.now() / 1000;
+        if (token <= now) {
+            console.log("TOKEN EXPIRED");
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+export default AuthStore

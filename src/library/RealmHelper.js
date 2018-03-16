@@ -1,19 +1,25 @@
 import axios from 'axios';
+import AuthStore from './AuthStore';
 
 class RealmHelper {
     constructor (requestToken = false) {
         this.http = axios.create({
-            //baseURL: 'http://138.68.71.39:4200'
-            baseURL: 'http://localhost:4000'
+            baseURL: 'http://138.68.71.39:4200'
+            // baseURL: 'http://localhost:4000'
         });
+
         this.config = {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         };
-        if (requestToken) {
-            this.config.headers.Authorization = requestToken;
+        let authStore = new AuthStore();
+        let token = authStore.accessToken();
+        if (token) {
+            this.config.headers['Access-Token'] = token;
         }
+        
         this.get = this.get.bind(this);
         this.post = this.post.bind(this);
     }

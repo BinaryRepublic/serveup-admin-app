@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Nav from './components/Nav.js';
 import Account from './components/Account.js';
+import Login from './components/Login.js';
 import Restaurant from './components/Restaurant.js';
 import Menu from './components/Menu.js';
 import VoiceDevice from './components/VoiceDevice.js';
 import './assets/css/App.css';
+import AuthStore from './library/AuthStore';
 
 import fontawesome from '@fortawesome/fontawesome'
 import brands from '@fortawesome/fontawesome-free-brands'
@@ -26,6 +28,7 @@ class App extends Component {
                 navName: 'Accounts'
             }]
         };
+        this.authStore = new AuthStore();
         this.switchViews = this.switchViews.bind(this);
         this.navigateViews = this.navigateViews.bind(this);
     }
@@ -68,24 +71,30 @@ class App extends Component {
 
     render () {
         // prepare content
-        let content;
-        if (this.state.viewData.VoiceDevice) {
-            content = <VoiceDevice voiceDeviceId={this.state.viewData.VoiceDevice.id} switchViews={this.switchViews} />;
-        } else if (this.state.viewData.Menu) {
-            content = <Menu menu={this.state.viewData.Menu.content} restaurantId={this.state.viewData.Menu.restaurantId} accountId={this.state.viewData.Restaurant} switchViews={this.switchViews} />;
-        } else if (this.state.viewData.Restaurant) {
-            content = <Restaurant accountId={this.state.viewData.Restaurant} switchViews={this.switchViews} />;
-        } else {
-            content = <Account switchViews={this.switchViews} />;
-        }
-        return (
-            <div id="wrapper">
-                <Nav items={this.state.navItems} navigateViews={this.navigateViews}/>
-                <div id="content">
-                    {content}
+        if (this.authStore.authAvailable()) {
+            let content;
+            if (this.state.viewData.VoiceDevice) {
+                content = <VoiceDevice voiceDeviceId={this.state.viewData.VoiceDevice.id} switchViews={this.switchViews} />;
+            } else if (this.state.viewData.Menu) {
+                content = <Menu menu={this.state.viewData.Menu.content} restaurantId={this.state.viewData.Menu.restaurantId} accountId={this.state.viewData.Restaurant} switchViews={this.switchViews} />;
+            } else if (this.state.viewData.Restaurant) {
+                content = <Restaurant accountId={this.state.viewData.Restaurant} switchViews={this.switchViews} />;
+            } else {
+                content = <Account switchViews={this.switchViews} />;
+            }
+            return (
+                <div id="wrapper">
+                    <Nav items={this.state.navItems} navigateViews={this.navigateViews}/>
+                    <div id="content">
+                        {content}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <Login />
+            );
+        }
     }
 }
 
