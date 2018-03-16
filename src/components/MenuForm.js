@@ -109,6 +109,12 @@ class MenuForm extends Component {
         } else {
             dbObj.synonym = '';
         }
+        // set null to ''
+        for (var key in dbObj) {
+            if (dbObj[key] === null) {
+                dbObj[key] = '';
+            }
+        }
         return dbObj;
     }
 
