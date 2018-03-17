@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AuthStore from './AuthStore';
+import LoginController from './LoginController';
 
 class RealmHelper {
     constructor (requestToken = false) {
@@ -14,16 +15,28 @@ class RealmHelper {
                 'Content-Type': 'application/json'
             }
         };
-        let authStore = new AuthStore();
-        let token = authStore.accessToken();
-        if (token) {
-            this.config.headers['Access-Token'] = token;
-        }
-        
+        this.authStore = new AuthStore();
+        this.loginController = new LoginController();
+        this.checkToken = this.checkToken.bind(this);
         this.get = this.get.bind(this);
         this.post = this.post.bind(this);
+        this.checkToken();
     }
-
+    checkToken() {
+        if (this.authStore.authAvailable()) {
+            if (this.authStore.isExpired()) {
+                console.log('TOKEN EXPIRED');
+                this.loginController.refreshToken();
+            } else {
+                let token = this.authStore.accessToken();
+                if (token) {
+                    this.config.headers['Access-Token'] = token;
+                } else {
+                    console.error("NO TOKEN IN AUTH DATA");
+                }
+            }
+        }
+    }
     encode (str) {
         try {
             let obj = JSON.parse(str);

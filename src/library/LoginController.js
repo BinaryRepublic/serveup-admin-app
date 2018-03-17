@@ -1,9 +1,8 @@
 import axios from 'axios';
 import AuthStore from './AuthStore';
-import RealmHelper from './RealmHelper';
 
 class LoginController {
-    constructor (requestToken = false) {
+    constructor (requestToken = false, realmHelper) {
         this.axios = axios.create({
             baseURL: 'http://138.68.71.39:2200'
         });
@@ -12,7 +11,7 @@ class LoginController {
                 'Accept': 'application/json'
             }
         };
-        this.realmHelper = new RealmHelper();
+        this.realmHelper = realmHelper;
         this.authStore = new AuthStore();
     };
    requestGrant(mail, password) {
@@ -33,19 +32,7 @@ class LoginController {
             grant: grant
         }, this.config)
             .then(function (response) {
-                if (response.data) {
-                    let accessToken = response.data.accessToken;
-                    let refreshToken = response.data.refreshToken;
-                    let expire = response.data.expire;
-                    if (accessToken && refreshToken && expire) {
-                        that.authStore.saveAuth(accountId, accessToken, refreshToken, expire);
-                        window.location.reload();
-                    } else {
-                        console.error('MISSING TOKEN DATA');
-                    }
-                } else {
-                    console.error('NO TOKEN DATA');
-                }
+                that.handleTokenResponse(response, accountId);
             })
             .catch(function (error) {
                 console.log(error);
@@ -59,13 +46,30 @@ class LoginController {
                 refreshToken: refreshToken
             }, this.config)
                 .then(function (response) {
-                    console.log(response);
+                    let accountId = that.authStore.accountId;
+                    that.handleTokenResponse(response, accountId);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });  
         } else {
             console.error('NO REFRESH TOKEN');
+        }
+    }
+    handleTokenResponse(response, accountId) {
+        if (response.data) {
+            let accessToken = response.data.accessToken;
+            let refreshToken = response.data.refreshToken;
+            let expire = response.data.expire;
+            if (accessToken && refreshToken && expire) {
+                this.authStore.saveAuth(accountId, accessToken, refreshToken, expire);
+                console.log('UPDATED AUTH DATA');
+                window.location.reload();
+            } else {
+                console.error('MISSING TOKEN DATA');
+            }
+        } else {
+            console.error('NO TOKEN DATA');
         }
     }
 }

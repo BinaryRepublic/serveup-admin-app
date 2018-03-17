@@ -50,10 +50,19 @@ class AuthStore {
             return undefined;
         }
     }
-    isExpired(token) {
-        let now = Date.now() / 1000;
-        if (token <= now) {
-            console.log("TOKEN EXPIRED");
+    accountId() {
+        let auth = this.loadAuth();
+        if (auth && auth.accountId) {
+            return auth.accountId;
+        } else {
+            return undefined;
+        }
+    }
+    isExpired() {
+        let auth = this.loadAuth();
+        let now = Date.now();
+        let expireDate = new Date(auth.expire).getTime();
+        if (expireDate <= now) {
             return true;
         } else {
             return false;

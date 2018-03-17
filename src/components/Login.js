@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import '../assets/css/Login.css';
+import RealmHelper from '../library/RealmHelper';
 import LoginController from '../library/LoginController';
 
 class Login extends Component {
     constructor (props) {
         super(props);
-        this.loginController = new LoginController();
+        this.loginController = new LoginController(false, new RealmHelper());
 
         this.login = this.login.bind(this);
     }
     login () {
-        let mail = 'henrik.engelbrink@code.berlin';//document.getElementById('mailInput').value;
-        let password = 'passwort123';//document.getElementById('passwordInput').value;
+        let mail = document.getElementById('mailInput').value;
+        let password = document.getElementById('passwordInput').value;
         if (mail && mail.length > 2 && password && password.length > 2) {
             this.loginController.requestGrant(mail, password);
         }
