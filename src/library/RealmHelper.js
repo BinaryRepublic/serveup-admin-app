@@ -3,7 +3,7 @@ import axios from 'axios';
 class RealmHelper {
     constructor (requestToken = false) {
         this.http = axios.create({
-            baseURL: 'http://admin-api-prod:4000'
+            baseURL: 'http://138.68.71.39:4000'
         });
         this.config = {
             headers: {
