@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     mode: 'development',
@@ -16,7 +17,8 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new Dotenv()
 	],
 	module: {
 		rules: [

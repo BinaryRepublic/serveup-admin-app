@@ -5,7 +5,7 @@ import LoginController from './LoginController';
 class RealmHelper {
     constructor (requestToken = false) {
         this.http = axios.create({
-            baseURL: 'http://138.68.71.39:4200'
+            baseURL: 'http://138.68.71.39:' + process.env.ADMIN_API_PORT
         });
 
         this.config = {

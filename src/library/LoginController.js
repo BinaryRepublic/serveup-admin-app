@@ -3,8 +3,9 @@ import AuthStore from './AuthStore';
 
 class LoginController {
     constructor (requestToken = false, realmHelper) {
+        
         this.axios = axios.create({
-            baseURL: 'http://138.68.71.39:2200'
+            baseURL: 'http://138.68.71.39:' + process.env.AUTH_API_PORT
         });
         this.config = {
             headers: {
