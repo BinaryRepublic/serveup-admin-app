@@ -16,7 +16,6 @@ class Login extends Component {
         if (mail && mail.length > 2 && password && password.length > 2) {
             this.loginController.requestGrant(mail, password);
         }
-        console.log(mail + ' -> ' + password);
     }
     render () {
         return (
