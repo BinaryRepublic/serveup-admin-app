@@ -47,8 +47,12 @@ class LoginController {
                 refreshToken: refreshToken
             }, this.config)
                 .then(function (response) {
-                    let accountId = that.authStore.accountId;
-                    that.handleTokenResponse(response, accountId);
+                    if (response) {
+                        let accountId = that.authStore.accountId;
+                        that.handleTokenResponse(response, accountId);
+                    } else {
+                        console.error('NO RESPONSE');
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
