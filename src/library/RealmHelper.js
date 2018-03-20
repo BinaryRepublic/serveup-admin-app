@@ -24,7 +24,6 @@ class RealmHelper {
     checkToken () {
         if (this.authStore.authAvailable()) {
             if (this.authStore.isExpired()) {
-                console.log('TOKEN EXPIRED');
                 this.loginController.refreshToken();
             } else {
                 let token = this.authStore.accessToken();
