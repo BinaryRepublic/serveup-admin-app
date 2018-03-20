@@ -6,7 +6,6 @@ class RealmHelper {
     constructor (requestToken = false) {
         this.http = axios.create({
             baseURL: 'http://138.68.71.39:4200'
-            // baseURL: 'http://localhost:4000'
         });
 
         this.config = {
@@ -22,7 +21,7 @@ class RealmHelper {
         this.post = this.post.bind(this);
         this.checkToken();
     }
-    checkToken() {
+    checkToken () {
         if (this.authStore.authAvailable()) {
             if (this.authStore.isExpired()) {
                 console.log('TOKEN EXPIRED');

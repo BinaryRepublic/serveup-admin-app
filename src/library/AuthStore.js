@@ -1,17 +1,17 @@
 class AuthStore {
-    constructor() {
+    constructor () {
         this.storageKey = 'roauthdata';
         this.authAvailable = this.authAvailable.bind(this);
         this.loadAuth = this.loadAuth.bind(this);
     }
-    authAvailable() {
+    authAvailable () {
         if (localStorage.getItem(this.storageKey)) {
             return true;
         } else {
             return false;
         }
     }
-    saveAuth(accountId, accessToken, refreshToken, expire) {
+    saveAuth (accountId, accessToken, refreshToken, expire) {
         if (!accountId || !accessToken || !refreshToken || !expire) {
             return false;
         } else {
@@ -25,7 +25,7 @@ class AuthStore {
             return true;
         }
     }
-    loadAuth() {
+    loadAuth () {
         if (localStorage.getItem(this.storageKey)) {
             let authString = localStorage.getItem(this.storageKey);
             let authObject = JSON.parse(authString);
@@ -34,7 +34,7 @@ class AuthStore {
             return undefined;
         }
     }
-    accessToken() {
+    accessToken () {
         let auth = this.loadAuth();
         if (auth && auth.accessToken) {
             return auth.accessToken;
@@ -42,7 +42,7 @@ class AuthStore {
             return undefined;
         }
     }
-    refreshToken() {
+    refreshToken () {
         let auth = this.loadAuth();
         if (auth && auth.refreshToken) {
             return auth.refreshToken;
@@ -50,7 +50,7 @@ class AuthStore {
             return undefined;
         }
     }
-    accountId() {
+    accountId () {
         let auth = this.loadAuth();
         if (auth && auth.accountId) {
             return auth.accountId;
@@ -58,7 +58,7 @@ class AuthStore {
             return undefined;
         }
     }
-    isExpired() {
+    isExpired () {
         let auth = this.loadAuth();
         let now = Date.now();
         let expireDate = new Date(auth.expire).getTime();

@@ -14,7 +14,7 @@ class LoginController {
         this.realmHelper = realmHelper;
         this.authStore = new AuthStore();
     };
-   requestGrant(mail, password) {
+    requestGrant (mail, password) {
         let that = this;
         this.realmHelper.post('login', {mail: mail, password: password})
             .catch(function (error) {
@@ -26,7 +26,7 @@ class LoginController {
                 }
             });
     };
-    requestToken(grant, accountId) {
+    requestToken (grant, accountId) {
         let that = this;
         this.axios.post('/access/grant', {
             grant: grant
@@ -38,7 +38,7 @@ class LoginController {
                 console.log(error);
             });
     }
-    refreshToken() {
+    refreshToken () {
         let refreshToken = this.authStore.refreshToken();
         if (refreshToken) {
             let that = this;
@@ -56,7 +56,7 @@ class LoginController {
             console.error('NO REFRESH TOKEN');
         }
     }
-    handleTokenResponse(response, accountId) {
+    handleTokenResponse (response, accountId) {
         if (response.data) {
             let accessToken = response.data.accessToken;
             let refreshToken = response.data.refreshToken;
