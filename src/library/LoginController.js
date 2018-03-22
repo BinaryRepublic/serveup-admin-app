@@ -3,7 +3,6 @@ import AuthStore from './AuthStore';
 
 class LoginController {
     constructor (requestToken = false, realmHelper) {
-        
         this.axios = axios.create({
             baseURL: 'http://138.68.71.39:' + process.env.AUTH_API_PORT
         });
@@ -56,7 +55,7 @@ class LoginController {
                 })
                 .catch(function (error) {
                     console.log(error);
-                });  
+                });
         } else {
             console.error('NO REFRESH TOKEN');
         }
@@ -78,4 +77,4 @@ class LoginController {
         }
     }
 }
-export default LoginController
+export default LoginController;

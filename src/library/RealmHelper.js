@@ -30,7 +30,7 @@ class RealmHelper {
                 if (token) {
                     this.config.headers['Access-Token'] = token;
                 } else {
-                    console.error("NO TOKEN IN AUTH DATA");
+                    console.error('NO TOKEN IN AUTH DATA');
                 }
             }
         }
