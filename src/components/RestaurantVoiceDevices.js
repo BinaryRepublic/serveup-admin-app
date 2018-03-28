@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import RestaurantVoiceDevicesItem from '../components/RestaurantVoiceDevicesItem';
 import CreateItem from '../components/CreateItem';
-import RealmHelper from '../library/RealmHelper';
 import EditPopup from './EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
+
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class RestaurantVoiceDevices extends Component {
     constructor (props) {
@@ -11,6 +13,9 @@ class RestaurantVoiceDevices extends Component {
         this.state = {
             voiceDevices: []
         };
+
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
 
         this.componentWillReceiveProps(props);
 
@@ -24,10 +29,9 @@ class RestaurantVoiceDevices extends Component {
 
     componentWillReceiveProps (props) {
         // load voiceDevices
-        this.realm = new RealmHelper();
-        this.realmPath = '/voiceDevice';
-        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'voiceDevices', {restaurantId: props.restaurantId});
-        this.realm.get('/voicedevices?restaurantId=' + props.restaurantId).then(result => {
+        this.httpPath = '/voiceDevice';
+        this.editPopupHelper = new EditPopupHelper(this.httpPath, 'voiceDevices', {restaurantId: props.restaurantId});
+        this.http.get('/voicedevices?restaurantId=' + props.restaurantId).then(result => {
             let newState = this.state;
             newState.voiceDevices = result;
             this.setState(newState);

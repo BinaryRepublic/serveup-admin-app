@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import MenuTree from '../components/MenuTree';
 import MenuForm from '../components/MenuForm';
-import RealmHelper from '../library/RealmHelper';
 import '../assets/css/Menu.css';
 import MenuDefaultParents from './MenuDefaultParents';
+
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class Menu extends Component {
     constructor (props) {
@@ -17,7 +19,8 @@ class Menu extends Component {
             menuFormMenuPos: []
         };
 
-        this.realm = new RealmHelper();
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
 
         this.menuFormInit = this.menuFormInit.bind(this);
         this.menuFormClose = this.menuFormClose.bind(this);
@@ -118,7 +121,7 @@ class Menu extends Component {
     submit () {
         let path = '/menu/' + this.state.menu.id;
         let newMenu = this.state.menu;
-        this.realm.put(path, newMenu).then((result) => {
+        this.http.put(path, newMenu).then((result) => {
             alert('success');
         }).catch(err => {
             if (err.response.status === 500 && err.response.data.error) {

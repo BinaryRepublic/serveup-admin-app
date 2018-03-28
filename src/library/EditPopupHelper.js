@@ -1,8 +1,10 @@
-import RealmHelper from './RealmHelper';
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class EditPopupHelper {
     constructor (basePath, arrayKey, createParams = {}) {
-        this.realm = new RealmHelper();
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
 
         this.basePath = basePath + '/';
         this.arrayKey = arrayKey;
@@ -31,7 +33,7 @@ class EditPopupHelper {
     updateItem (state, id, formData) {
         const that = this;
         return new Promise((resolve, reject) => {
-            this.realm.put(that.basePath + id, formData).then(result => {
+            this.http.put(that.basePath + id, formData).then(result => {
                 let newState = state;
                 newState[that.arrayKey].forEach((item, x) => {
                     if (item.id === id) {
@@ -48,7 +50,7 @@ class EditPopupHelper {
         const that = this;
         return new Promise((resolve, reject) => {
             if (window.confirm('Sure?')) {
-                this.realm.Delete(that.basePath + id).then(() => {
+                this.http.delete(that.basePath + id).then(() => {
                     let newState = state;
                     let deleteIndex = 0;
                     newState[that.arrayKey].forEach((item, x) => {

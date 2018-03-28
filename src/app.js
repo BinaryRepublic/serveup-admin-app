@@ -6,12 +6,12 @@ import Restaurant from './components/Restaurant.js';
 import Menu from './components/Menu.js';
 import VoiceDevice from './components/VoiceDevice.js';
 import './assets/css/App.css';
-import AuthStore from './library/AuthStore';
+import AuthStore from './ro-webapp-helper/authentication/authStore';
 
-import fontawesome from '@fortawesome/fontawesome'
-import brands from '@fortawesome/fontawesome-free-brands'
-import freeSolid from '@fortawesome/fontawesome-free-solid'
-fontawesome.library.add(brands, freeSolid)
+import fontawesome from '@fortawesome/fontawesome';
+import brands from '@fortawesome/fontawesome-free-brands';
+import freeSolid from '@fortawesome/fontawesome-free-solid';
+fontawesome.library.add(brands, freeSolid);
 
 class App extends Component {
     constructor (props) {

@@ -3,7 +3,9 @@ import RestaurantListItem from '../components/RestaurantListItem';
 import CreateItem from '../components/CreateItem';
 import EditPopup from '../components/EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
-import RealmHelper from '../library/RealmHelper';
+
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class RestaurantList extends Component {
     constructor (props) {
@@ -16,9 +18,11 @@ class RestaurantList extends Component {
         };
 
         // load restaurants
-        this.realm = new RealmHelper();
-        this.realmPath = '/restaurants?accountId=' + this.props.accountId;
-        this.realm.get(this.realmPath).then(result => {
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
+
+        this.httpPath = '/restaurants?accountId=' + this.props.accountId;
+        this.http.get(this.httpPath).then(result => {
             let newState = this.state;
             newState.restaurants = result;
             this.setState(newState);

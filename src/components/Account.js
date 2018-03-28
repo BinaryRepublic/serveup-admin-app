@@ -4,19 +4,22 @@ import CreateItem from './CreateItem';
 import EditPopup from './EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
 import '../assets/css/Account.css';
-import Realm from '../library/RealmHelper';
+
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class Account extends Component {
     constructor (props) {
         super(props);
-        this.realm = new Realm();
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
         this.state = {
             accounts: []
         };
         const that = this;
         // load accounts
-        this.realmBasePath = '/account';
-        this.realm.get('/accounts').then((result) => {
+        this.httpBasePath = '/account';
+        this.http.get('/accounts').then((result) => {
             let newState = that.state;
             newState.accounts = result;
             that.setState(newState);
@@ -25,7 +28,7 @@ class Account extends Component {
         });
 
         // edit helper
-        this.editPopupHelper = new EditPopupHelper(this.realmBasePath, 'accounts');
+        this.editPopupHelper = new EditPopupHelper(this.httpBasePath, 'accounts');
 
         this.editAccount = this.editAccount.bind(this);
         this.editAccountClose = this.editAccountClose.bind(this);
