@@ -8,14 +8,14 @@ class serverConfig {
         let adminApiPort = 4200;
         let orderWorkerPort = 6200;
         // STAGE
-        if (window.location.port === 81) {
+        if (window.location.port == 81) {
             authApiPort = 2100;
             orderApiPort = 3100;
             adminApiPort = 4100;
             orderWorkerPort = 6100;
         }
         // DEV
-        else if (window.location.port === 82 || window.location.port === 3000) {
+        else if (window.location.port == 82 || window.location.port == 3000) {
             authApiPort = 2200;
             orderApiPort = 3200;
             adminApiPort = 4200;
