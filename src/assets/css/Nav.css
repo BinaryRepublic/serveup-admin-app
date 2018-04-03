@@ -1,4 +1,5 @@
 #nav {
+    position: relative;
     width: 100%;
     margin: 40px 0;
     background-color: #fff;
@@ -24,4 +25,14 @@
 }
 .nav-list-item.icon {
     margin: 0 15px;
+}
+#nav-logout {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    float: right;
+}
+#nav-logout:hover {
+    cursor: pointer;
 }
