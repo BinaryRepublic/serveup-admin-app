@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import RestaurantMenusItem from '../components/RestaurantMenusItem';
 import CreateItem from '../components/CreateItem';
-import RealmHelper from '../library/RealmHelper';
 import EditPopup from './EditPopup';
 import EditPopupHelper from '../library/EditPopupHelper';
+
+import HttpHelper from '../ro-webapp-helper/http';
+import ServerConfig from '../serverConfig';
 
 class RestaurantMenus extends Component {
     constructor (props) {
@@ -24,10 +26,11 @@ class RestaurantMenus extends Component {
 
     componentWillReceiveProps (props) {
         // load menus
-        this.realm = new RealmHelper();
-        this.realmPath = '/menu';
-        this.editPopupHelper = new EditPopupHelper(this.realmPath, 'menus', {restaurantId: props.restaurantId});
-        this.realm.get('/menus?restaurantId=' + props.restaurantId).then(result => {
+        this.serverCfg = new ServerConfig();
+        this.http = new HttpHelper(this.serverCfg.adminApi, this.serverCfg.authApi);
+        this.httpPath = '/menu';
+        this.editPopupHelper = new EditPopupHelper(this.httpPath, 'menus', {restaurantId: props.restaurantId});
+        this.http.get('/menus?restaurantId=' + props.restaurantId).then(result => {
             let newState = this.state;
             newState.menus = result;
             this.setState(newState);
