@@ -3,10 +3,10 @@ class serverConfig {
         // -- init ports
         // -- should be dependent on ENV-Variables later!
         // PROD
-        let authApiPort = 2200;
-        let orderApiPort = 3200;
-        let adminApiPort = 4200;
-        let orderWorkerPort = 6200;
+        let authApiPort = 2000;
+        let orderApiPort = 3000;
+        let adminApiPort = 4000;
+        let orderWorkerPort = 6000;
         // STAGE
         if (window.location.port === '81') {
             authApiPort = 2100;
