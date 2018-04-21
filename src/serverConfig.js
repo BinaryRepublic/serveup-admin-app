@@ -15,7 +15,7 @@ class serverConfig {
             orderWorkerPort = 6100;
         }
         // DEV
-        else if (window.location.port === '92' || window.location.port === '3000') {
+        else if (window.location.port === '92' || window.location.port === '3000' || window.location.port === '8080') {
             authApiPort = 2200;
             orderApiPort = 3200;
             adminApiPort = 4200;
