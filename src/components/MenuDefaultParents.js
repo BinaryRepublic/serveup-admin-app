@@ -77,7 +77,7 @@ class MenuDefaultParents extends Component {
         }
         return (
             <div id="menu-default-parents">
-                <CreateItem click={this.editDp} text="CREATE DEFAULT PARENT"/>
+                <CreateItem click={this.editDp.bind(this, undefined)} text="CREATE DEFAULT PARENT"/>
                 {vars}
                 {editPopup}
             </div>
